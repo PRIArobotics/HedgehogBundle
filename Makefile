@@ -1,7 +1,7 @@
 PROTOC_VERSION = 3.0.0-beta-2
 PROTOC_PLATFORM = linux-x86_32
 
-.PHONY: all env clean-env clean flash
+.PHONY: all protoc-install protoc env clean-env run
 
 all: run
 
