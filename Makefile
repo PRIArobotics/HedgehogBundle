@@ -1,16 +1,6 @@
-PROTOC_VERSION = 3.0.0-beta-2
-PROTOC_PLATFORM = linux-x86_32
-
-.PHONY: all protoc-install protoc env clean-env run
+.PHONY: all protoc env clean-env run
 
 all: run
-
-# install protoc
-protoc-install:
-	wget https://github.com/google/protobuf/releases/download/v$(PROTOC_VERSION)/protoc-$(PROTOC_VERSION)-$(PROTOC_PLATFORM).zip
-	rm -f bin/protoc
-	unzip protoc-$(PROTOC_VERSION)-$(PROTOC_PLATFORM).zip protoc -d bin
-	rm protoc-$(PROTOC_VERSION)-$(PROTOC_PLATFORM).zip
 
 protoc:
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
