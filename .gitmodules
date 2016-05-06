@@ -4,3 +4,6 @@
 [submodule "HedgehogServer"]
 	path = HedgehogServer
 	url = https://github.com/PRIArobotics/HedgehogServer.git
+[submodule "HedgehogClient"]
+	path = HedgehogClient
+	url = https://github.com/PRIArobotics/HedgehogClient.git

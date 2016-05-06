@@ -12,6 +12,7 @@ env:
 	python3 -m virtualenv env
 	. env/bin/activate && pip install -e HedgehogProtocol[dev]
 	. env/bin/activate && pip install -e HedgehogServer
+	. env/bin/activate && pip install -e HedgehogClient[test]
 
 # clean up the python environment for the HWC Flasher
 clean-env:
