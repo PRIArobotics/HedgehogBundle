@@ -18,5 +18,8 @@ env:
 clean-env:
 	rm -rf env
 
-run:
+run-server:
+	. env/bin/activate && hedgehog-server
+
+run-simulator:
 	. env/bin/activate && hedgehog-simulator
