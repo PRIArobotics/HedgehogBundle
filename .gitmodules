@@ -10,3 +10,6 @@
 [submodule "HedgehogUtils"]
 	path = HedgehogUtils
 	url = https://github.com/PRIArobotics/HedgehogUtils
+[submodule "HedgehogPeriphery"]
+	path = HedgehogPeriphery
+	url = https://github.com/PRIArobotics/HedgehogPeriphery.git
