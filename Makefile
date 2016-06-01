@@ -4,8 +4,13 @@ all: run
 
 protoc:
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
-	export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
-	. env/bin/activate && cd HedgehogProtocol && invoke protoc
+	    export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
+	    . env/bin/activate && \
+	    cd HedgehogProtocol && invoke protoc
+	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
+	    export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
+	    . env/bin/activate && \
+	    cd HedgehogUtils && invoke protoc
 
 # set up the python environment for the HWC Flasher
 env:
