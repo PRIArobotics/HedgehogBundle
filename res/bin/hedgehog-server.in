@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd '##PWD##'
+sudo -u '#1000' make run-server

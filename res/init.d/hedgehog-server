@@ -1,0 +1,51 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          hedgehog-server
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start Hedgehog server
+### END INIT INFO
+
+NAME=hedgehog-server
+DAEMON=/usr/local/bin/hedgehog-server
+PIDFILE=/var/run/hedgehog-server.pid
+
+test -f $DAEMON || exit 0
+
+# Using the lsb functions to perform the operations.
+. /lib/lsb/init-functions
+
+case "$1" in
+start)
+    log_daemon_msg "Starting $NAME"
+    start_daemon -p $PIDFILE $DAEMON
+    log_end_msg $?
+	;;
+stop)
+    log_daemon_msg "Stopping $NAME"
+    killproc -p $PIDFILE $DAEMON
+    RETVAL=$?
+    [ $RETVAL -eq 0 ] && [ -e "$PIDFILE" ] && rm -f $PIDFILE
+    log_end_msg $RETVAL
+    ;;
+restart)
+    log_daemon_msg "Restarting $NAME"
+    $0 stop
+    $0 start
+    ;;
+reload|force-reload)
+    log_daemon_msg "Reloading configuration files for $NAME"
+    # no configuration files
+    log_end_msg 0
+    ;;
+status)
+    status_of_proc -p $PIDFILE $DAEMON $NAME && exit 0 || exit $?
+    ;;
+*)
+    log_action_msg "Usage: /etc/init.d/$NAME {start|stop|status|restart|reload|force-reload}"
+    exit 2
+    ;;
+esac

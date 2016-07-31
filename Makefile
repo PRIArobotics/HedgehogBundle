@@ -22,6 +22,22 @@ env:
 	. env/bin/activate && pip install -e HedgehogServer
 	. env/bin/activate && pip install -e HedgehogClient[test]
 
+install:
+	sed -re 's*##PWD##*$(PWD)*' res/bin/hedgehog-server.in > res/bin/hedgehog-server
+	chmod +x res/bin/hedgehog-server
+
+	sudo ln -s $(PWD)/res/init.d/hedgehog-server /etc/init.d/
+	sudo ln -s $(PWD)/res/bin/hedgehog-server /usr/local/bin/
+
+	sudo update-rc.d hedgehog-server defaults
+
+uninstall:
+	sudo update-rc.d hedgehog-server remove
+
+	sudo rm -f /etc/init.d/hedgehog-server
+	sudo rm -f /usr/local/bin/hedgehog-server
+
+
 # clean up the python environment for the HWC Flasher
 clean-env:
 	rm -rf env
