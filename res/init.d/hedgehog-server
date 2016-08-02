@@ -23,7 +23,7 @@ start)
     log_daemon_msg "Starting $NAME"
     start_daemon -p $PIDFILE $DAEMON
     log_end_msg $?
-	;;
+    ;;
 stop)
     log_daemon_msg "Stopping $NAME"
     killproc -p $PIDFILE $DAEMON

@@ -1,4 +1,8 @@
 #!/bin/bash
 
+PIDFILE=/var/run/hedgehog-server.pid
+
 cd '##PWD##'
-sudo -u '#1000' make run-server
+. env/bin/activate
+hedgehog-server&
+echo $! > "$PIDFILE"
