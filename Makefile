@@ -16,7 +16,7 @@ protoc:
 env:
 	python3 -m virtualenv env
 	. env/bin/activate && pip install https://github.com/zeromq/pyre/archive/master.zip
-	. env/bin/activate && pip install -e HedgehogPeriphery
+	. env/bin/activate && pip install -e HedgehogPlatform
 	. env/bin/activate && pip install -e HedgehogUtils
 	. env/bin/activate && pip install -e HedgehogProtocol[dev]
 	. env/bin/activate && pip install -e HedgehogServer
