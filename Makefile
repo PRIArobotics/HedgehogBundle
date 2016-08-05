@@ -43,7 +43,7 @@ clean-env:
 	rm -rf env
 
 run-server:
-	. env/bin/activate && hedgehog-server
+	. env/bin/activate && cd HedgehogServer && hedgehog-server
 
 run-simulator:
-	. env/bin/activate && hedgehog-simulator
+	. env/bin/activate && cd HedgehogServer && hedgehog-simulator

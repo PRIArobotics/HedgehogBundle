@@ -4,5 +4,6 @@ PIDFILE=/var/run/hedgehog-server.pid
 
 cd '##PWD##'
 . env/bin/activate
+cd HedgehogServer
 hedgehog-server&
 echo $! > "$PIDFILE"
