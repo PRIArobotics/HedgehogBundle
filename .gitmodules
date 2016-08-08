@@ -13,3 +13,6 @@
 [submodule "HedgehogPlatform"]
 	path = HedgehogPlatform
 	url = https://github.com/PRIArobotics/HedgehogPlatform.git
+[submodule "pyre"]
+	path = pyre
+	url = https://github.com/PRIArobotics/pyre.git
