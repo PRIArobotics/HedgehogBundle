@@ -26,8 +26,8 @@ install:
 	sed -re 's*##PWD##*$(PWD)*' res/bin/hedgehog-server.in > res/bin/hedgehog-server
 	chmod +x res/bin/hedgehog-server
 
-	sudo ln -s $(PWD)/res/init.d/hedgehog-server /etc/init.d/
-	sudo ln -s $(PWD)/res/bin/hedgehog-server /usr/local/bin/
+	sudo ln -s -f $(PWD)/res/init.d/hedgehog-server /etc/init.d/
+	sudo ln -s -f $(PWD)/res/bin/hedgehog-server /usr/local/bin/
 
 	sudo update-rc.d hedgehog-server defaults
 
