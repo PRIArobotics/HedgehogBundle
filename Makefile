@@ -1,6 +1,6 @@
-.PHONY: all protoc env clean-env run
+.PHONY: all protoc env clean-env install uninstall run-server run-simulator
 
-all: run
+all: run-server
 
 protoc:
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
@@ -12,6 +12,7 @@ protoc:
 	    . env/bin/activate && \
 	    cd HedgehogUtils && invoke protoc
 
+
 # set up the python environment for the HWC Flasher
 env:
 	python3 -m virtualenv env
@@ -22,8 +23,16 @@ env:
 	. env/bin/activate && pip install -e HedgehogServer
 	. env/bin/activate && pip install -e HedgehogClient[test]
 
+# clean up the python environment for the HWC Flasher
+clean-env:
+	rm -rf env
+
+
 install:
-	sed -re 's*##PWD##*$(PWD)*' res/bin/hedgehog-server.in > res/bin/hedgehog-server
+	sed -r \
+	    -e 's*##PWD##*$(PWD)*' \
+	    -e 's*##MAC##*$(shell ifconfig enp9s0 | grep HWaddr | sed 's/^.*HWaddr.*..:..:..:\(..:..:..\).*/\1/')*' \
+	    res/bin/hedgehog-server.in > res/bin/hedgehog-server
 	chmod +x res/bin/hedgehog-server
 
 	sudo ln -s -f $(PWD)/res/init.d/hedgehog-server /etc/init.d/
@@ -37,10 +46,6 @@ uninstall:
 	sudo rm -f /etc/init.d/hedgehog-server
 	sudo rm -f /usr/local/bin/hedgehog-server
 
-
-# clean up the python environment for the HWC Flasher
-clean-env:
-	rm -rf env
 
 run-server:
 	. env/bin/activate && cd HedgehogServer && hedgehog-server
