@@ -2,8 +2,10 @@
 
 PIDFILE=/var/run/hedgehog-server.pid
 
+NAME="Hedgehog Server $(ifconfig eth0 | grep HWaddr | sed 's/^.*HWaddr.*..:..:..:\(..:..:..\).*/\1/')"
+
 cd '##PWD##'
 . env/bin/activate
 cd HedgehogServer
-hedgehog-server --name 'Hedgehog Server ##MAC##' --port 10789 --logging-conf 'logging.conf' &
+hedgehog-server --name "$NAME" --port 10789 --logging-conf 'logging.conf' &
 echo $! > "$PIDFILE"

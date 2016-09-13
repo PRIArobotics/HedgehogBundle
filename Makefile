@@ -29,9 +29,7 @@ clean-env:
 
 
 install:
-	sed -r \
-	    -e 's*##PWD##*$(PWD)*' \
-	    -e 's*##MAC##*$(shell ifconfig eth0 | grep HWaddr | sed 's/^.*HWaddr.*..:..:..:\(..:..:..\).*/\1/')*' \
+	sed -r -e 's*##PWD##*$(PWD)*' \
 	    res/bin/hedgehog-server.in > res/bin/hedgehog-server
 	chmod +x res/bin/hedgehog-server
 
