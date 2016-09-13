@@ -5,5 +5,5 @@ PIDFILE=/var/run/hedgehog-server.pid
 cd '##PWD##'
 . env/bin/activate
 cd HedgehogServer
-hedgehog-server --name 'Hedgehog Server ##MAC##' --port 10789 &
+hedgehog-server --name 'Hedgehog Server ##MAC##' --port 10789 --logging-conf 'logging.conf' &
 echo $! > "$PIDFILE"

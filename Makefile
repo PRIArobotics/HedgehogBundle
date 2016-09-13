@@ -16,7 +16,7 @@ protoc:
 # set up the python environment for the HWC Flasher
 env:
 	python3 -m virtualenv env
-	. env/bin/activate && pip install -e pyre
+	. env/bin/activate && pip install https://github.com/zeromq/pyre/archive/master.zip
 	. env/bin/activate && pip install -e HedgehogPlatform
 	. env/bin/activate && pip install -e HedgehogUtils
 	. env/bin/activate && pip install -e HedgehogProtocol[dev]
