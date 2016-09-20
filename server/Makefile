@@ -30,8 +30,7 @@ env-develop: create-env
 	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
 	    -e git+https://github.com/PRIArobotics/HedgehogUtils@develop#egg=hedgehog-utils[dev] \
 	    -e git+https://github.com/PRIArobotics/HedgehogProtocol@develop#egg=hedgehog-protocol[dev] \
-	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server \
-	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client[test]
+	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server
 
 # Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
 # This only works if the server sources are installed for development.
