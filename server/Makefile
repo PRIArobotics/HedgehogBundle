@@ -1,4 +1,5 @@
-.PHONY: all protoc env clean-env install uninstall run-server run-simulator
+.PHONY: all create-env clean-env env env-develop protoc protoc-provided \
+    setup setup-develop run-server run-simulator install uninstall
 
 all: run-server
 
@@ -60,9 +61,9 @@ protoc-provided:
 # setup targets
 ####
 
-server-setup: env
+setup: env
 
-server-setup-develop: env-develop protoc
+setup-develop: env-develop protoc
 
 
 ####
