@@ -32,8 +32,10 @@ env-develop: create-env
 	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server \
 	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client[test]
 
-# runs the protobuf compiler for hedgehog-protocol and hedgehog-utils
-# only works if the server sources are installed for development
+# Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
+# This only works if the server sources are installed for development.
+# This target uses the protoc binary from this repository, which is for ARM. On a development machine, install protoc
+# manually and use `protoc-provided`
 protoc:
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
 	    export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
@@ -42,6 +44,15 @@ protoc:
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
 	    export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
 	    . env/bin/activate && \
+	    cd env/src/hedgehog-utils && invoke protoc
+
+# Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
+# This only works if the server sources are installed for development.
+# This target uses the protoc binary installed on the system
+protoc-provided:
+	. env/bin/activate && \
+	    cd env/src/hedgehog-protocol && invoke protoc
+	. env/bin/activate && \
 	    cd env/src/hedgehog-utils && invoke protoc
 
 
