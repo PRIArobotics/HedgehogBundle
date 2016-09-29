@@ -17,7 +17,7 @@ env: create-env
 	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    ipython \
 	    https://github.com/zeromq/pyre/archive/master.zip \
-	    hedgehog-server
+	    hedgehog-server hedgehog-client
 
 # Installs Hedgehog server sources into the environment for development.
 # The Hedgehog sources are installed, and can be edited, in env/src.
@@ -30,7 +30,8 @@ env-develop: create-env
 	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
 	    -e git+https://github.com/PRIArobotics/HedgehogUtils@develop#egg=hedgehog-utils[dev] \
 	    -e git+https://github.com/PRIArobotics/HedgehogProtocol@develop#egg=hedgehog-protocol[dev] \
-	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server
+	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server \
+	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client
 
 # Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
 # This only works if the server sources are installed for development.
@@ -63,6 +64,10 @@ protoc-provided:
 setup: env
 
 setup-develop: env-develop protoc
+
+with-raspberry:
+	. env/bin/activate && pip install \
+	    hedgehog-platform[raspberry] hedgehog-server[raspberry]
 
 
 ####

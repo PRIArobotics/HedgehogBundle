@@ -31,7 +31,7 @@ env: create-env
 env-develop: create-env
 	. env/bin/activate && pip install \
 	    twine \
-	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
+	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform[raspberry] \
 	    -e git+https://github.com/PRIArobotics/HedgehogHWCFlasher@develop#egg=hedgehog-hwc-flasher
 
 # Clones the firmware so it can be built and installed
