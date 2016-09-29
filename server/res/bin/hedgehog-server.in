@@ -6,6 +6,5 @@ NAME="Hedgehog Server $(ifconfig eth0 | grep HWaddr | sed 's/^.*HWaddr.*..:..:..
 
 cd '##PWD##'
 . env/bin/activate
-cd HedgehogServer
 hedgehog-server --name "$NAME" --port 10789 --logging-conf 'logging.conf' &
 echo $! > "$PIDFILE"
