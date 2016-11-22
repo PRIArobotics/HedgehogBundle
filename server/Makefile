@@ -21,7 +21,7 @@ env: create-env
 
 # Installs Hedgehog server sources into the environment for development.
 # The Hedgehog sources are installed, and can be edited, in env/src.
-# Compared to `env-server`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
+# Compared to `env`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
 # to call the protobuf compiler, and `twine`, a tool for deploying packages to PyPI.
 env-develop: create-env
 	. env/bin/activate && pip install \
@@ -31,7 +31,7 @@ env-develop: create-env
 	    -e git+https://github.com/PRIArobotics/HedgehogUtils@develop#egg=hedgehog-utils[dev] \
 	    -e git+https://github.com/PRIArobotics/HedgehogProtocol@develop#egg=hedgehog-protocol[dev] \
 	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server \
-	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client
+	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client[test]
 
 # Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
 # This only works if the server sources are installed for development.

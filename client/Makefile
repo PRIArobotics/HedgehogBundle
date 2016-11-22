@@ -28,7 +28,7 @@ env-gui: env
 
 # Installs Hedgehog client sources into the environment for development.
 # The Hedgehog sources are installed, and can be edited, in env/src.
-# Compared to `env-server`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
+# Compared to `env`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
 # to call the protobuf compiler, `hedgehog-server` (via hedgehog-client[test]) to run client tests, and `twine`, a tool
 # for deploying packages to PyPI.
 env-develop: create-env

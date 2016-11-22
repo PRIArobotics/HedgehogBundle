@@ -21,17 +21,17 @@ clean-env:
 # Installs a Hedgehog flasher distribution into the environment.
 env: create-env
 	. env/bin/activate && pip install \
+	    ipython \
 	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    hedgehog-hwc-flasher
 
 # Installs Hedgehog flasher sources into the environment for development.
 # The Hedgehog sources are installed, and can be edited, in env/src.
-# Compared to `env-server`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
-# to call the protobuf compiler, and `twine`, a tool for deploying packages to PyPI.
+# Compared to `env`, this additionally installs `twine`, a tool for deploying packages to PyPI.
 env-develop: create-env
 	. env/bin/activate && pip install \
-	    twine \
-	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform[raspberry] \
+	    ipython twine \
+	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
 	    -e git+https://github.com/PRIArobotics/HedgehogHWCFlasher@develop#egg=hedgehog-hwc-flasher
 
 # Clones the firmware so it can be built and installed
