@@ -32,7 +32,7 @@ env-gui: env
 # to call the protobuf compiler, `hedgehog-server` (via hedgehog-client[test]) to run client tests, and `twine`, a tool
 # for deploying packages to PyPI.
 env-develop: create-env
-	. env/bin/activate && pip install \
+	. env/bin/activate && pip install --upgrade \
 	    ipython twine \
 	    https://github.com/zeromq/pyre/archive/master.zip \
 	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
@@ -44,7 +44,7 @@ env-develop: create-env
 # Installs the Hedgehog GUI for devlopment
 # The Hedgehog sources are installed, and can be edited, in env/src.
 env-gui-develop: env-develop
-	. env/bin/activate && pip install \
+	. env/bin/activate && pip install --upgrade \
 	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    git+https://gitlab.com/kivymd/KivyMD.git#egg=kivymd \
 	    -e git+https://github.com/PRIArobotics/HedgehogGui@develop#egg=hedgehog-gui

@@ -13,7 +13,7 @@ clean-env:
 
 # Installs a Hedgehog server distribution into the environment.
 env: create-env
-	. env/bin/activate && pip install \
+	. env/bin/activate && pip install --upgrade \
 	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    ipython \
 	    https://github.com/zeromq/pyre/archive/master.zip \
@@ -24,7 +24,7 @@ env: create-env
 # Compared to `env`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
 # to call the protobuf compiler, and `twine`, a tool for deploying packages to PyPI.
 env-develop: create-env
-	. env/bin/activate && pip install \
+	. env/bin/activate && pip install --upgrade \
 	    ipython twine \
 	    https://github.com/zeromq/pyre/archive/master.zip \
 	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
