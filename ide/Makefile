@@ -1,9 +1,9 @@
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v1.0.0/hedgehog-ide-1.0.0-linux-armv6l.tar.gz
 NODE_VERSION = 7.9.0
 
-all: release service
+all: dependencies release service
 
-release: dependencies
+release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
 	tar -xf ./hedgehog-ide.tar.gz
 	cp ./server.config.js ./hedgehog-ide/config/server.config.js
