@@ -14,7 +14,7 @@ dependencies:
 	tar -xvf /tmp/nodejs.tar.gz -C /tmp
 	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv6l/* /usr/local/
 	sudo apt update
-	sudo apt install libssl-dev libzmq-dev
+	sudo apt install -y libssl-dev libzmq-dev
 
 service:
 	sudo cp ./hedgehog-ide.service /lib/systemd/system
