@@ -1,4 +1,4 @@
-IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v1.0.0/hedgehog-ide-1.0.0-linux-armv6l.tar.gz
+IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v1.0.1/hedgehog-ide-1.0.1-linux-armv6l.tar.gz
 NODE_VERSION = 7.9.0
 
 all: dependencies release service

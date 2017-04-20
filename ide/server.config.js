@@ -15,7 +15,7 @@ exports = module.exports = {
         temporaryStorageDirectory: '/tmp',
 
         // Path to python interpreter
-        pythonPath: '../server/env/bin/python',
+        pythonPath: '../../server/env/bin/python',
     },
 
     // Server connection definition for the backend
