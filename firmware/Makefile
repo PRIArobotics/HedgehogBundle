@@ -1,5 +1,5 @@
 # name of the project, the binaries will be generated with this name
-PROJ_NAME = HedgehogLightFirmware
+PROJ_NAME = HedgehogFirmware
 
 #directory for binary output files
 BUILDDIR := build
@@ -36,7 +36,7 @@ env-develop: create-env
 
 # Clones the firmware so it can be built and installed
 clone-firmware:
-	test -d HedgehogLightFirmware || git clone https://github.com/PRIArobotics/HedgehogLightFirmware
+	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
 
 
 ####
