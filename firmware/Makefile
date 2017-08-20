@@ -4,48 +4,30 @@ PROJ_NAME = HedgehogFirmware
 #directory for binary output files
 BUILDDIR := build
 
-.PHONY: all create-env clean-env env env-develop clone-firmware \
-    setup setup-develop clean flash flash-tmp
+.PHONY: all _clone_firmware clone-firmware-master clone-firmware-light \
+    setup setup-light clean flash flash-tmp
 
 # build the firmware in the bundled project
 all: $(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).bin
 
-# create python environment
-create-env:
-	test -d env || python3 -m virtualenv env
-
-# delete python environment
-clean-env:
-	rm -rf env
-
-# Installs a Hedgehog flasher distribution into the environment.
-env: create-env
-	. env/bin/activate && pip install --upgrade \
-	    ipython \
-	    --extra-index-url https://testpypi.python.org/pypi/ \
-	    hedgehog-hwc-flasher
-
-# Installs Hedgehog flasher sources into the environment for development.
-# The Hedgehog sources are installed, and can be edited, in env/src.
-# Compared to `env`, this additionally installs `twine`, a tool for deploying packages to PyPI.
-env-develop: create-env
-	. env/bin/activate && pip install --upgrade \
-	    ipython twine \
-	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
-	    -e git+https://github.com/PRIArobotics/HedgehogHWCFlasher@develop#egg=hedgehog-hwc-flasher
+_clone_firmware:
+	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
 
 # Clones the firmware so it can be built and installed
-clone-firmware:
-	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
+clone-firmware-master: _clone_firmware
+	cd HedgehogFirmware && git checkout master
+
+clone-firmware-light: _clone_firmware
+	cd HedgehogFirmware && git checkout light
 
 
 ####
 # setup targets
 ####
 
-setup: env clone-firmware
+setup: clone-firmware-master
 
-setup-develop: env-develop clone-firmware
+setup-light: clone-firmware-light
 
 ####
 # build & flash targets
@@ -61,8 +43,8 @@ clean:
 
 # flash the firmware from the bundled project
 flash:
-	. env/bin/activate && cd $(PROJ_NAME) && make flash
+	cd $(PROJ_NAME) && make flash
 
 # flash a binary from /tmp/$(PROJ_NAME).bin that was put there by someone else
 flash-tmp:
-	. env/bin/activate && hedgehog-hwc-flasher /tmp/$(PROJ_NAME).bin
+	cd $(PROJ_NAME) && make flash-tmp
