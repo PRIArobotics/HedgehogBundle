@@ -25,9 +25,16 @@ clone-firmware-light: _clone_firmware
 # setup targets
 ####
 
-setup: clone-firmware-master
+_openocd:
+	sudo aptitude -y install autoconf libtool libusb-1.0-0-dev
+	test -d openocd || git clone git://git.code.sf.net/p/openocd/code openocd
+	cd openocd && ./bootstrap
+	cd openocd && ./configure --enable-maintainer-mode --enable-bcm2835gpio --enable-sysfsgpio
+	cd openocd && make -j4 && sudo make install
 
-setup-light: clone-firmware-light
+setup: _openocd clone-firmware-master
+
+setup-light: _openocd clone-firmware-light
 
 ####
 # build & flash targets
