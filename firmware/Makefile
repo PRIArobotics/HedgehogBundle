@@ -13,12 +13,11 @@ all: $(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).hex
 _clone_firmware:
 	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
 
-# Clones the firmware so it can be built and installed
-clone-firmware-master: _clone_firmware
-	cd HedgehogFirmware && git checkout master
+_checkout_firmware_master: _clone_firmware
+	cd HedgehogFirmware && git fetch origin master && git checkout -B master origin/master
 
-clone-firmware-light: _clone_firmware
-	cd HedgehogFirmware && git checkout light
+_checkout_firmware_light: _clone_firmware
+	cd HedgehogFirmware && git fetch origin light && git checkout -B light origin/light
 
 
 ####
@@ -35,9 +34,9 @@ _openocd:
 	cd openocd && ./configure --enable-maintainer-mode --enable-bcm2835gpio --enable-sysfsgpio
 	cd openocd && make -j4 && sudo make install
 
-setup: _install_firmware_toolchain _openocd clone-firmware-master
+setup: _install_firmware_toolchain _openocd _checkout_firmware_master
 
-setup-light: _install_firmware_toolchain _openocd clone-firmware-light
+setup-light: _install_firmware_toolchain _openocd _checkout_firmware_light
 
 ####
 # build & flash targets
