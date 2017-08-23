@@ -7,7 +7,7 @@ all: release
 setup:
 	sudo aptitude -y install libssl-dev libzmq-dev
 	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv6l.tar.gz -O /tmp/nodejs.tar.gz
-	tar -xvf /tmp/nodejs.tar.gz -C /tmp
+	tar -xf /tmp/nodejs.tar.gz -C /tmp
 	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv6l/* /usr/local/
 
 release:
