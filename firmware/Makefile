@@ -8,7 +8,7 @@ BUILDDIR := build
     setup setup-light clean flash flash-tmp
 
 # build the firmware in the bundled project
-all: $(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).bin
+all: $(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).hex
 
 _clone_firmware:
 	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
@@ -44,8 +44,8 @@ setup-light: _install_firmware_toolchain _openocd clone-firmware-light
 ####
 
 # build the firmware in the bundled project
-$(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).bin:
-	cd $(PROJ_NAME) && make $(BUILDDIR)/$(PROJ_NAME).bin
+$(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).hex:
+	cd $(PROJ_NAME) && make $(BUILDDIR)/$(PROJ_NAME).hex
 
 # clean up the firmware in the bundled project
 clean:
