@@ -9,6 +9,7 @@ setup:
 	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv6l.tar.gz -O /tmp/nodejs.tar.gz
 	tar -xf /tmp/nodejs.tar.gz -C /tmp
 	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv6l/* /usr/local/
+	sudo setcap cap_net_bind_service=+ep $(shell readlink -f $(shell which node))
 
 release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
