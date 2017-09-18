@@ -27,9 +27,6 @@ release:
 	chgrp hedgehog-ide $(shell node -p "require('./server.config.js').programStorageDirectory")
 	chmod g+w $(shell node -p "require('./server.config.js').programStorageDirectory")
 
-autorun-ide:
-	cd hedgehog-ide && umask 002 && npm start --production
-
 install:
 	sudo cp ./hedgehog-ide.service /lib/systemd/system
 	sudo systemctl daemon-reload

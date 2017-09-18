@@ -81,9 +81,6 @@ with-raspberry:
 run-server:
 	. env/bin/activate && hedgehog-server --port 10789 --logging-conf 'logging.conf'
 
-autorun-server:
-	. env/bin/activate && hedgehog-server --logging-conf 'logging.conf' --scan-file /media/usb/hedgehog.conf --scan
-
 run-simulator:
 	. env/bin/activate && hedgehog-simulator --port 10789 --logging-conf 'logging.conf'
 
