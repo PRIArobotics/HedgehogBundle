@@ -17,7 +17,7 @@ setup:
 	# add user with minimal permissions
 	sudo adduser --no-create-home --system --group hedgehog-ide < /dev/null
 	# grant pi user access to IDE-created files (i.e. code)
-	sudo usermod -a -G hedgehog-ide
+	sudo usermod -a -G hedgehog-ide pi
 
 release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
