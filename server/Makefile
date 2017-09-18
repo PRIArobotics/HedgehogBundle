@@ -77,6 +77,9 @@ with-raspberry:
 run-server:
 	. env/bin/activate && hedgehog-server --port 10789 --logging-conf 'logging.conf'
 
+autorun-server:
+	. env/bin/activate && hedgehog-server --logging-conf 'logging.conf' --scan-file /media/usb/hedgehog.conf --scan
+
 run-simulator:
 	. env/bin/activate && hedgehog-simulator --port 10789 --logging-conf 'logging.conf'
 
@@ -86,17 +89,11 @@ run-simulator:
 ####
 
 install:
-	sed -r -e 's*##PWD##*$(PWD)*' \
-	    res/bin/hedgehog-server.in > res/bin/hedgehog-server
-	chmod +x res/bin/hedgehog-server
-
-	sudo ln -s -f $(PWD)/res/init.d/hedgehog-server /etc/init.d/
-	sudo ln -s -f $(PWD)/res/bin/hedgehog-server /usr/local/bin/
-
-	sudo update-rc.d hedgehog-server defaults
+	sudo cp ./hedgehog-server.service /lib/systemd/system
+	sudo systemctl daemon-reload
+	sudo systemctl start hedgehog-server.service
+	sudo systemctl enable hedgehog-server.service
 
 uninstall:
-	sudo update-rc.d hedgehog-server remove
-
-	sudo rm -f /etc/init.d/hedgehog-server
-	sudo rm -f /usr/local/bin/hedgehog-server
+	sudo systemctl stop hedgehog-server.service
+	sudo systemctl disable hedgehog-server.service
