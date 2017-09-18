@@ -56,14 +56,18 @@ protoc-provided:
 	. env/bin/activate && \
 	    cd env/src/hedgehog-utils && invoke protoc
 
+user:
+	# add user with minimal permissions
+	sudo adduser --no-create-home --system --group hedgehog-server < /dev/null
+	sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server
 
 ####
 # setup targets
 ####
 
-setup: env
+setup: user env
 
-setup-develop: env-develop protoc
+setup-develop: user env-develop protoc
 
 with-raspberry:
 	. env/bin/activate && pip install \

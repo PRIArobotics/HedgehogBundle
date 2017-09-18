@@ -7,7 +7,7 @@ After=network.target
 [Service]
 WorkingDirectory=/home/pi/HedgehogBundle/server
 ExecStart=/usr/bin/make autorun-server
-User=hedgehog
+User=hedgehog-server
 
 [Install]
 WantedBy=multi-user.target
