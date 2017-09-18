@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd hedgehog-ide
+umask 002
+npm start --production

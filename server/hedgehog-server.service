@@ -1,0 +1,13 @@
+# file has to be located in:
+# /etc/systemd/system/
+[Unit]
+Description=Hedgehog Server
+After=network.target
+
+[Service]
+WorkingDirectory=/home/pi/HedgehogBundle/server
+ExecStart=/home/pi/HedgehogBundle/server/bin/hedgehog-server
+User=hedgehog-server
+
+[Install]
+WantedBy=multi-user.target

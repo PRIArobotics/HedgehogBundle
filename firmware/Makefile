@@ -1,59 +1,47 @@
 # name of the project, the binaries will be generated with this name
-PROJ_NAME = HedgehogLightFirmware
+PROJ_NAME = HedgehogFirmware
 
 #directory for binary output files
 BUILDDIR := build
 
-.PHONY: all create-env clean-env env env-develop clone-firmware \
-    setup setup-develop clean flash flash-tmp
+.PHONY: all _clone_firmware clone-firmware-master clone-firmware-light \
+    setup setup-light clean flash flash-tmp
 
 # build the firmware in the bundled project
-all: $(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).bin
+all:
+	cd $(PROJ_NAME) && make all
 
-# create python environment
-create-env:
-	test -d env || python3 -m virtualenv env
+_clone_firmware:
+	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
 
-# delete python environment
-clean-env:
-	rm -rf env
+_checkout_firmware_master: _clone_firmware
+	cd HedgehogFirmware && git fetch origin master && git checkout -B master origin/master
 
-# Installs a Hedgehog flasher distribution into the environment.
-env: create-env
-	. env/bin/activate && pip install --upgrade \
-	    ipython \
-	    --extra-index-url https://testpypi.python.org/pypi/ \
-	    hedgehog-hwc-flasher
-
-# Installs Hedgehog flasher sources into the environment for development.
-# The Hedgehog sources are installed, and can be edited, in env/src.
-# Compared to `env`, this additionally installs `twine`, a tool for deploying packages to PyPI.
-env-develop: create-env
-	. env/bin/activate && pip install --upgrade \
-	    ipython twine \
-	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
-	    -e git+https://github.com/PRIArobotics/HedgehogHWCFlasher@develop#egg=hedgehog-hwc-flasher
-
-# Clones the firmware so it can be built and installed
-clone-firmware:
-	test -d HedgehogLightFirmware || git clone https://github.com/PRIArobotics/HedgehogLightFirmware
+_checkout_firmware_light: _clone_firmware
+	cd HedgehogFirmware && git fetch origin light && git checkout -B light origin/light
 
 
 ####
 # setup targets
 ####
 
-setup: env clone-firmware
+_install_firmware_toolchain:
+	sudo aptitude -y install gcc-arm-none-eabi libnewlib-arm-none-eabi
 
-setup-develop: env-develop clone-firmware
+_openocd:
+	sudo aptitude -y install autoconf libtool libusb-1.0-0-dev
+	test -d openocd || git clone git://git.code.sf.net/p/openocd/code openocd
+	cd openocd && ./bootstrap
+	cd openocd && ./configure --enable-maintainer-mode --enable-bcm2835gpio --enable-sysfsgpio
+	cd openocd && make -j4 && sudo make install
+
+setup: _install_firmware_toolchain _openocd _checkout_firmware_master
+
+setup-light: _install_firmware_toolchain _openocd _checkout_firmware_light
 
 ####
 # build & flash targets
 ####
-
-# build the firmware in the bundled project
-$(PROJ_NAME)/$(BUILDDIR)/$(PROJ_NAME).bin:
-	cd $(PROJ_NAME) && make $(BUILDDIR)/$(PROJ_NAME).bin
 
 # clean up the firmware in the bundled project
 clean:
@@ -61,8 +49,8 @@ clean:
 
 # flash the firmware from the bundled project
 flash:
-	. env/bin/activate && cd $(PROJ_NAME) && make flash
+	cd $(PROJ_NAME) && make flash
 
 # flash a binary from /tmp/$(PROJ_NAME).bin that was put there by someone else
 flash-tmp:
-	. env/bin/activate && hedgehog-hwc-flasher /tmp/$(PROJ_NAME).bin
+	cd $(PROJ_NAME) && make flash-tmp

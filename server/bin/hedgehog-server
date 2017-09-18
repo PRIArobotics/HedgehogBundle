@@ -1,0 +1,4 @@
+#!/bin/bash
+
+. env/bin/activate
+hedgehog-server --logging-conf 'logging.conf' --scan-file /media/usb/hedgehog.conf --scan

@@ -56,14 +56,18 @@ protoc-provided:
 	. env/bin/activate && \
 	    cd env/src/hedgehog-utils && invoke protoc
 
+user:
+	# add user with minimal permissions
+	sudo adduser --no-create-home --system --group hedgehog-server < /dev/null
+	sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server
 
 ####
 # setup targets
 ####
 
-setup: env
+setup: user env
 
-setup-develop: env-develop protoc
+setup-develop: user env-develop protoc
 
 with-raspberry:
 	. env/bin/activate && pip install \
@@ -86,17 +90,11 @@ run-simulator:
 ####
 
 install:
-	sed -r -e 's*##PWD##*$(PWD)*' \
-	    res/bin/hedgehog-server.in > res/bin/hedgehog-server
-	chmod +x res/bin/hedgehog-server
-
-	sudo ln -s -f $(PWD)/res/init.d/hedgehog-server /etc/init.d/
-	sudo ln -s -f $(PWD)/res/bin/hedgehog-server /usr/local/bin/
-
-	sudo update-rc.d hedgehog-server defaults
+	sudo cp ./hedgehog-server.service /lib/systemd/system
+	sudo systemctl daemon-reload
+	sudo systemctl start hedgehog-server.service
+	sudo systemctl enable hedgehog-server.service
 
 uninstall:
-	sudo update-rc.d hedgehog-server remove
-
-	sudo rm -f /etc/init.d/hedgehog-server
-	sudo rm -f /usr/local/bin/hedgehog-server
+	sudo systemctl stop hedgehog-server.service
+	sudo systemctl disable hedgehog-server.service
