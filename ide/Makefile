@@ -16,6 +16,11 @@ release:
 	tar -xf ./hedgehog-ide.tar.gz
 	cp ./server.config.js ./hedgehog-ide/config/server.config.js
 	mkdir -p $(shell node -p "require('./server.config.js').programStorageDirectory")
+	chgrp nogroup $(shell node -p "require('./server.config.js').programStorageDirectory")
+	chmod g+w $(shell node -p "require('./server.config.js').programStorageDirectory")
+
+autorun-ide:
+	cd hedgehog-ide && umask 002 && npm start --production
 
 install:
 	sudo cp ./hedgehog-ide.service /lib/systemd/system
