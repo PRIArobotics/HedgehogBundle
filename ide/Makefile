@@ -24,7 +24,7 @@ release:
 	tar -xf ./hedgehog-ide.tar.gz
 	cp ./server.config.js ./hedgehog-ide/config/server.config.js
 	mkdir -p $(shell node -p "require('./server.config.js').programStorageDirectory")
-	chgrp hedgehog-ide $(shell node -p "require('./server.config.js').programStorageDirectory")
+	sudo chgrp hedgehog-ide $(shell node -p "require('./server.config.js').programStorageDirectory")
 	chmod g+w $(shell node -p "require('./server.config.js').programStorageDirectory")
 
 install:
