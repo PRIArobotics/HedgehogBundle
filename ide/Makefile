@@ -19,6 +19,16 @@ setup:
 	# grant pi user access to IDE-created files (i.e. code)
 	sudo usermod -a -G hedgehog-ide pi
 
+	# set samba password for hedgehog-ide
+	echo "raspberry\nraspberry" | sudo smbpasswd -a hedgehog-ide
+	# add shared folder to Samba config
+	sudo echo "\n\
+	[hedgehog-programs]\n\
+	path = /home/pi/hedgehog-programs\n\
+	valid users = hedgehog-ide\n\
+	read only = no\
+	" >> /etc/samba/smb.conf
+
 release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
 	tar -xf ./hedgehog-ide.tar.gz
