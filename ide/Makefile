@@ -18,6 +18,8 @@ setup:
 	sudo adduser --no-create-home --system --group hedgehog-ide < /dev/null
 	# grant pi user access to IDE-created files (i.e. code)
 	sudo usermod -a -G hedgehog-ide pi
+	# FIXME remove the IDE dialout permission when PRIArobotics/hedgehog-ide#34 is fixed
+	sudo usermod -a -G dialout hedgehog-ide
 
 release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
