@@ -1,4 +1,4 @@
-IDE_VERSION = 1.1.1
+IDE_VERSION = 1.2.0
 NODE_VERSION = 7.9.0
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv6l.tar.gz
 
@@ -25,6 +25,10 @@ release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
 	tar -xf ./hedgehog-ide.tar.gz
 	cp ./server.config.js ./hedgehog-ide/config/server.config.js
+	# Generate a JWT secret
+	# Tough this is not the optimal way of injecting the generated secret
+	# into the config file, it works ¯\_(ツ)_/¯
+	sed "s#\(jwtSecret: *'\)[^']*\('\)#\1`node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`\2#g" ./hedgehog-ide/config/server.config.js > ./hedgehog-ide/config/server.config.js
 	mkdir -p $(shell node -p "require('./server.config.js').programStorageDirectory")
 	sudo chgrp hedgehog-ide $(shell node -p "require('./server.config.js').programStorageDirectory")
 	chmod g+w $(shell node -p "require('./server.config.js').programStorageDirectory")
