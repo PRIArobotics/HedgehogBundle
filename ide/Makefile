@@ -12,7 +12,7 @@ setup:
 	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv6l/* /usr/local/
 
 	# make sure node can bind to port 80 without running as root
-	sudo setcap cap_net_bind_service=+ep $(shell readlink -f $(shell which node))
+	sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
 
 	# add user with minimal permissions
 	sudo adduser --no-create-home --system --group hedgehog-ide < /dev/null
