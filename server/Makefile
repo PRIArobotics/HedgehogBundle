@@ -14,7 +14,6 @@ clean-env:
 # Installs a Hedgehog server distribution into the environment.
 env: create-env
 	. env/bin/activate && pip install --upgrade \
-	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    ipython \
 	    https://github.com/zeromq/pyre/archive/master.zip \
 	    hedgehog-server hedgehog-client
