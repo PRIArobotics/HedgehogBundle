@@ -1,15 +1,15 @@
 IDE_VERSION = 1.2.1
-NODE_VERSION = 7.9.0
+NODE_VERSION = 8.9.4
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv6l.tar.gz
 
-all: release
+all: release, config
 
 setup:
 	# install dependencies
 	sudo aptitude -y install libssl-dev libzmq-dev
-	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv6l.tar.gz -O /tmp/nodejs.tar.gz
+	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-arm64.tar.gz -O /tmp/nodejs.tar.gz
 	tar -xf /tmp/nodejs.tar.gz -C /tmp
-	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv6l/* /usr/local/
+	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-arm64/* /usr/local/
 
 	# make sure node can bind to port 80 without running as root
 	sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
