@@ -7,9 +7,9 @@ all: release, config
 setup:
 	# install dependencies
 	sudo aptitude -y install libssl-dev libzmq-dev
-	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-arm64.tar.gz -O /tmp/nodejs.tar.gz
+	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv7l.tar.gz -O /tmp/nodejs.tar.gz
 	tar -xf /tmp/nodejs.tar.gz -C /tmp
-	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-arm64/* /usr/local/
+	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv7l/* /usr/local/
 
 	# make sure node can bind to port 80 without running as root
 	sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
@@ -21,9 +21,19 @@ setup:
 	# FIXME remove the IDE dialout permission when PRIArobotics/hedgehog-ide#34 is fixed
 	sudo usermod -a -G dialout hedgehog-ide
 
+develop:
+	git clone https://github.com/PRIArobotics/hedgehog-ide.git
+	hedgehog-ide
+	npm install
+	./node_modules/typings/dist/bin.js install
+	./node_modules/grunt/bin/grunt build
+	./node_modules/grunt/bin/grunt webpack:dist
+
 release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
 	tar -xf ./hedgehog-ide.tar.gz
+
+config:
 	cp ./server.config.js ./hedgehog-ide/config/server.config.js
 	# Generate a JWT secret
 	# Though this is not the optimal way of injecting the generated secret
