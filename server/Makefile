@@ -5,7 +5,7 @@ all: run-server
 
 # create python environment
 create-env:
-	test -d env || python3 -m virtualenv env
+	test -d env || python -m virtualenv env
 
 # delete python environment
 clean-env:
