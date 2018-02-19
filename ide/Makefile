@@ -1,4 +1,4 @@
-IDE_VERSION = 1.2.1
+IDE_VERSION = 1.3.0
 NODE_VERSION = 8.9.4
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv6l.tar.gz
 
