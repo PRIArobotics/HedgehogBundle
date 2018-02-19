@@ -34,7 +34,7 @@ install-develop:
 
 make-release:
 	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
-	tar czfv hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz hedgehog-ide/release --transform s/hedgehog-ide\/release/hedgehog-ide/
+	tar czfv hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz hedgehog-ide/release --transform 's/hedgehog-ide\/release/hedgehog-ide/'
 
 install-release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
