@@ -9,7 +9,8 @@ setup-release: install-node setup-env install-release config-release enable-serv
 setup-develop: install-node install-develop
 
 install-node:
-		sudo aptitude -y install libssl-dev libzmq-dev
+		sudo aptitude -y update
+		sudo aptitude -y install libssl-dev libzmq-dev libcurl4-gnutls-dev
 		wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv7l.tar.gz -O /tmp/nodejs.tar.gz
 		tar -xf /tmp/nodejs.tar.gz -C /tmp
 		sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv7l/* /usr/local/
@@ -26,12 +27,14 @@ setup-env:
 	sudo usermod -a -G dialout hedgehog-ide
 
 install-develop:
-			git clone https://github.com/PRIArobotics/hedgehog-ide.git
-			hedgehog-ide
-			npm install
-			./node_modules/typings/dist/bin.js install
-			./node_modules/grunt/bin/grunt build
-			./node_modules/grunt/bin/grunt webpack:dist
+	git clone https://github.com/PRIArobotics/hedgehog-ide.git
+	cd hedgehog-ide && npm install
+	cd hedgehog-ide && ./node_modules/typings/dist/bin.js install
+	cd hedgehog-ide && ./node_modules/grunt/bin/grunt build
+
+make-release:
+	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
+	tar czfv hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz hedgehog-ide/release --transform s/hedgehog-ide\/release/hedgehog-ide/
 
 install-release:
 	wget $(IDE_RELEASE) -O ./hedgehog-ide.tar.gz
