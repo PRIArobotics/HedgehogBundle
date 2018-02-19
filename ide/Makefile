@@ -32,7 +32,7 @@ install-develop:
 	cd hedgehog-ide && ./node_modules/typings/dist/bin.js install
 	cd hedgehog-ide && ./node_modules/grunt/bin/grunt build
 
-make-release:
+create-release:
 	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
 	tar czfv hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz hedgehog-ide/release --transform 's/hedgehog-ide\/release/hedgehog-ide/'
 
