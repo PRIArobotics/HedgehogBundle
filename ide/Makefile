@@ -1,8 +1,8 @@
 IDE_VERSION = 1.3.0
 NODE_VERSION = 8.9.4
-IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv6l.tar.gz
+IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz
 
-all: setup-release
+all: install-node setup-env install-release config-release enable-service
 
 setup-release: install-node setup-env install-release config-release enable-service
 
