@@ -9,11 +9,11 @@ setup-release: install-node setup-env install-release config-release enable-serv
 setup-develop: install-node install-develop
 
 install-node:
-		sudo aptitude -y update
-		sudo aptitude -y install libssl-dev libzmq-dev libcurl4-gnutls-dev
-		wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv7l.tar.gz -O /tmp/nodejs.tar.gz
-		tar -xf /tmp/nodejs.tar.gz -C /tmp
-		sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv7l/* /usr/local/
+	sudo aptitude -y update
+	sudo aptitude -y install libssl-dev libzmq-dev libcurl4-gnutls-dev
+	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv7l.tar.gz -O /tmp/nodejs.tar.gz
+	tar -xf /tmp/nodejs.tar.gz -C /tmp
+	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv7l/* /usr/local/
 
 setup-env:
 	# make sure node can bind to port 80 without running as root
