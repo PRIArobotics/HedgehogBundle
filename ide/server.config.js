@@ -1,6 +1,5 @@
 exports = module.exports = {
-    // 'production' will serve the webpack client package
-    // 'debug' uses SystemJS
+    // environment: 'debug',
     environment: 'production',
 
     // Path where the programs will be storage
@@ -31,8 +30,8 @@ exports = module.exports = {
 
     // Authentication configuration
     auth: {
-        // Require authentication
-        enabled: true,
+        // Don't require authentication by default
+        enabled: false,
 
         // Secret key used for signing JWT tokens
         // Generate it e.g. via node: 'node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"'
