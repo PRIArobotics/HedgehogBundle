@@ -1,0 +1,50 @@
+# Hedgehog libraries and dependencies
+-e git+https://github.com/PRIArobotics/HedgehogClient@26849d89d46dcf5267fc6276f9fc587b4acab97c#egg=hedgehog_client  # hedgehog-client==0.6.1
+-e git+https://github.com/PRIArobotics/HedgehogPlatform@9dbc58e45299f0dd1f4b774b571182d8c1cb94e1#egg=hedgehog_platform  # hedgehog-platform==0.2.0
+-e git+https://github.com/PRIArobotics/HedgehogProtocol@26d3b2c39f8cf3d562411a6478cf584434f2a455#egg=hedgehog_protocol  # hedgehog-protocol==0.6.0
+-e git+https://github.com/PRIArobotics/HedgehogServer@7260b01051558038b1c84685eb104fc6a6238cdc#egg=hedgehog_server  # hedgehog-server==0.6.0
+-e git+https://github.com/PRIArobotics/HedgehogUtils@273ad615bc21eb56f4e8076935660c95e7ebaa16#egg=hedgehog_utils  # hedgehog-utils==0.4.2
+protobuf==3.6.1
+pycreate2==0.7.3
+https://github.com/zeromq/pyre/archive/master.zip  # pyre==0.3.2
+pyserial==3.4
+pyzmq==17.1.2
+RPi.GPIO==0.6.5
+simplejson==3.16.0
+
+# ipython for more comfortable console work
+backcall==0.1.0
+decorator==4.3.0
+ipython==7.2.0
+ipython-genutils==0.2.0
+jedi==0.13.1
+parso==0.3.1
+pexpect==4.6.0
+pickleshare==0.7.5
+prompt-toolkit==2.0.7
+ptyprocess==0.6.0
+Pygments==2.3.0
+six==1.11.0
+traitlets==4.3.2
+wcwidth==0.1.7
+
+# invoke for easily running python tools
+invoke==1.2.0
+ipaddress==1.0.22
+
+# twine & dependencies for making and publishing releases
+bleach==3.0.2
+certifi==2018.11.29
+chardet==3.0.4
+docutils==0.14
+idna==2.7
+pkginfo==1.4.2
+Pygments==2.3.0
+readme-renderer==24.0
+requests==2.20.1
+requests-toolbelt==0.8.0
+six==1.11.0
+tqdm==4.28.1
+twine==1.12.1
+urllib3==1.24.1
+webencodings==0.5.1

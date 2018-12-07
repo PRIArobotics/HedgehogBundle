@@ -3,6 +3,8 @@
 
 all: run-server
 
+HEDGEHOG_SERVER_DISTRIBUTION = 0.6.0
+
 # create python environment
 create-env:
 	test -d env || python -m virtualenv env
@@ -14,9 +16,7 @@ clean-env:
 # Installs a Hedgehog server distribution into the environment.
 env: create-env
 	. env/bin/activate && pip install --upgrade \
-	    ipython \
-	    https://github.com/zeromq/pyre/archive/master.zip \
-	    hedgehog-server hedgehog-client
+	    -r distributions/hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION).txt
 
 # Installs Hedgehog server sources into the environment for development.
 # The Hedgehog sources are installed, and can be edited, in env/src.
@@ -24,13 +24,7 @@ env: create-env
 # to call the protobuf compiler, and `twine`, a tool for deploying packages to PyPI.
 env-develop: create-env
 	. env/bin/activate && pip install --upgrade \
-	    ipython twine \
-	    https://github.com/zeromq/pyre/archive/master.zip \
-	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
-	    -e git+https://github.com/PRIArobotics/HedgehogUtils@develop#egg=hedgehog-utils[dev] \
-	    -e git+https://github.com/PRIArobotics/HedgehogProtocol@develop#egg=hedgehog-protocol[dev] \
-	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server \
-	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client[test]
+	    -r distributions/hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)-dev.txt
 
 # Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
 # This only works if the server sources are installed for development.
@@ -67,10 +61,6 @@ user:
 setup: user env
 
 setup-develop: user env-develop protoc
-
-with-raspberry:
-	. env/bin/activate && pip install \
-	    hedgehog-platform[raspberry] hedgehog-server[raspberry]
 
 
 ####
