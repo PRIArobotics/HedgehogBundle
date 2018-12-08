@@ -30,7 +30,6 @@ wcwidth==0.1.7
 
 # invoke for easily running python tools
 invoke==1.2.0
-ipaddress==1.0.22
 
 # twine & dependencies for making and publishing releases
 bleach==3.0.2
