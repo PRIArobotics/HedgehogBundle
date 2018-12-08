@@ -51,10 +51,15 @@ protoc-provided:
 	. $(ENV)/bin/activate && \
 	    cd env/src/hedgehog-utils && invoke protoc
 
+# add user with minimal permissions
 user:
-	# add user with minimal permissions
-	sudo adduser --no-create-home --system --group hedgehog-server < /dev/null
-	sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server
+	@if ! (id hedgehog-server >/dev/null 2>&1) ; then \
+	    sudo adduser --no-create-home --system --group hedgehog-server < /dev/null; \
+	    sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server; \
+	    echo "User hedgehog-server created"; \
+	else \
+	    echo "User hedgehog-server exists"; \
+	fi
 
 ####
 # setup targets
