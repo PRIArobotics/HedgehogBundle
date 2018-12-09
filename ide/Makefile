@@ -41,11 +41,11 @@ install-release:
 	tar -xf ./hedgehog-ide.tar.gz
 
 config-release:
-	cp ./server.config.js ./hedgehog-ide/config/server.config.js
 	# Generate a JWT secret
 	# Though this is not the optimal way of injecting the generated secret
 	# into the config file, it works ¯\_(ツ)_/¯
-	sed -i.bak "s#\(jwtSecret: *'\)[^']*\('\)#\1`node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`\2#g" ./hedgehog-ide/config/server.config.js
+	sed "s#\(jwtSecret: *'\)[^']*\('\)#\1`node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`\2#g" server.config.js \
+	    > ./hedgehog-ide/config/server.config.js
 	mkdir -p $(shell node -p "require('./server.config.js').programStorageDirectory")
 	sudo chgrp hedgehog-ide $(shell node -p "require('./server.config.js').programStorageDirectory")
 	chmod g+w $(shell node -p "require('./server.config.js').programStorageDirectory")
