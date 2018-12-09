@@ -1,25 +1,17 @@
 IDE_VERSION = 1.3.0
-NODE_VERSION = 8.9.4
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz
 
-all: install-node setup-env install-release config-release enable-service
+all: setup-env install-release config-release enable-service
 
-setup-release: install-node setup-env install-release config-release enable-service
+setup-release: setup-env install-release config-release enable-service
 
-setup-develop: install-node install-develop
-
-install-node:
-	sudo aptitude -y update
-	sudo aptitude -y install libssl-dev libzmq-dev libcurl4-gnutls-dev
-	wget https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-armv7l.tar.gz -O /tmp/nodejs.tar.gz
-	tar -xf /tmp/nodejs.tar.gz -C /tmp
-	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv7l/* /usr/local/
+setup-develop: install-develop
 
 setup-env: node-setcap user
 
 node-setcap:
 	# make sure node can bind to port 80 without running as root
-	sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
+	sudo setcap cap_net_bind_service=+ep `which node`
 
 # add user with minimal permissions
 user:
