@@ -1,4 +1,7 @@
 #!/bin/bash
 
-. env/bin/activate
-hedgehog-server --logging-conf 'logging.conf' --scan-file /media/usb/hedgehog.conf --scan
+ENV_NAME="$1"
+ENV="/home/pi/.pyenv/versions/$ENV_NAME"
+
+. "$ENV/bin/activate" || exit 1
+exec hedgehog-server --logging-conf 'logging.conf' --scan-file /media/usb/hedgehog.conf --scan

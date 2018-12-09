@@ -1,0 +1,76 @@
+# Hedgehog libraries and dependencies
+aiostream==0.3.1
+concurrent-utils==0.2.0
+-e git+https://github.com/PRIArobotics/HedgehogClient@beaf97acc5aa9b67199789cd1042fdca06ed4396#egg=hedgehog_client  # hedgehog-client==0.8.0
+-e git+https://github.com/PRIArobotics/HedgehogPlatform@9dbc58e45299f0dd1f4b774b571182d8c1cb94e1#egg=hedgehog_platform  # hedgehog-platform==0.2.0
+-e git+https://github.com/PRIArobotics/HedgehogProtocol@5755659ffb850178f1be2798d2e9e620e34c893c#egg=hedgehog_protocol  # hedgehog-protocol==0.7.1
+-e git+https://github.com/PRIArobotics/HedgehogProtocolSpec@8c1468f91e5f540d9760f7614dc892f9eae36168#egg=hedgehog_protocol_spec  # hedgehog-protocol-spec==0.7.1
+-e git+https://github.com/PRIArobotics/HedgehogServer@553f6d158a01f7793a0a59cf60abb5645733bb96#egg=hedgehog_server  # hedgehog-server==0.8.0
+-e git+https://github.com/PRIArobotics/HedgehogUtils@836a3094330f86b7bbb87460a9ef0c0053f19c91#egg=hedgehog_utils  # hedgehog-utils==0.6.0
+protobuf==3.6.1
+pycreate2==0.7.3
+pyserial==3.4
+pyserial-asyncio==0.4
+pyzmq==17.1.2
+RPi.GPIO==0.6.5
+simplejson==3.16.0
+six==1.11.0
+
+# ipython for more comfortable console work
+backcall==0.1.0
+decorator==4.3.0
+ipython==7.2.0
+ipython-genutils==0.2.0
+jedi==0.13.1
+parso==0.3.1
+pexpect==4.6.0
+pickleshare==0.7.5
+prompt-toolkit==2.0.7
+ptyprocess==0.6.0
+Pygments==2.3.0
+six==1.11.0
+traitlets==4.3.2
+wcwidth==0.1.7
+
+# invoke for easily running python tools
+invoke==1.2.0
+
+# twine & dependencies for making and publishing releases
+bleach==3.0.2
+certifi==2018.11.29
+chardet==3.0.4
+docutils==0.14
+idna==2.7
+pkginfo==1.4.2
+Pygments==2.3.0
+readme-renderer==24.0
+requests==2.20.1
+requests-toolbelt==0.8.0
+six==1.11.0
+tqdm==4.28.1
+twine==1.12.1
+urllib3==1.24.1
+webencodings==0.5.1
+
+# build & testing tools & dependencies
+antlr4-python3-runtime==4.7.1
+atomicwrites==1.2.1
+attrs==18.2.0
+coverage==4.5.2
+gsl==0.0.3
+more-itertools==4.3.0
+mypy==0.650
+mypy-extensions==0.4.1
+pluggy==0.8.0
+py==1.7.0
+pytest==4.0.1
+pytest-asyncio==0.9.0
+pytest-cov==2.6.0
+pytest-runner==4.2
+pytest-timeout==1.3.3
+ruamel.yaml==0.15.81
+setuptools==40.6.2
+six==1.11.0
+six==1.11.0
+typed-ast==1.1.0
+wheel==0.32.3

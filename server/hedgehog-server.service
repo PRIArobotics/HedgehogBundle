@@ -6,7 +6,8 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/pi/HedgehogBundle/server
-ExecStart=/home/pi/HedgehogBundle/server/bin/hedgehog-server
+# ENV_NAME will be sed'ed to the real env name on installation into the systemd folder
+ExecStart=/home/pi/HedgehogBundle/server/bin/hedgehog-server ENV_NAME
 User=hedgehog-server
 
 [Install]

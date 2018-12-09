@@ -5,7 +5,7 @@ all: run-server
 
 # create python environment
 create-env:
-	test -d env || python3 -m virtualenv env
+	test -d env || python -m virtualenv env
 
 # delete python environment
 clean-env:
@@ -14,7 +14,6 @@ clean-env:
 # Installs a Hedgehog client distribution into the environment.
 env: create-env
 	. env/bin/activate && pip install \
-	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    ipython \
 	    https://github.com/zeromq/pyre/archive/master.zip \
 	    hedgehog-client
@@ -22,7 +21,6 @@ env: create-env
 # Installs the Hedgehog GUI
 env-gui: env
 	. env/bin/activate && pip install \
-	    --extra-index-url https://testpypi.python.org/pypi/ \
 	    git+https://gitlab.com/kivymd/KivyMD.git#egg=kivymd \
 	    hedgehog-gui
 

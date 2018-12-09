@@ -3,35 +3,32 @@
 
 all: run-server
 
+HEDGEHOG_SERVER_DISTRIBUTION = 0.6.0
+ENV_NAME = hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)
+ENV = ~/.pyenv/versions/$(ENV_NAME)
+
 # create python environment
 create-env:
-	test -d env || python3 -m virtualenv env
+	test -d $(ENV) || pyenv virtualenv $(ENV_NAME)
+	test -e env || ln -s $(ENV) env
 
 # delete python environment
 clean-env:
-	rm -rf env
+	pyenv virtualenv-delete -f $(ENV_NAME)
+	rm -f env
 
 # Installs a Hedgehog server distribution into the environment.
 env: create-env
-	. env/bin/activate && pip install --upgrade \
-	    --extra-index-url https://testpypi.python.org/pypi/ \
-	    ipython \
-	    https://github.com/zeromq/pyre/archive/master.zip \
-	    hedgehog-server hedgehog-client
+	. $(ENV)/bin/activate && pip install --upgrade \
+	    -r distributions/hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION).txt
 
 # Installs Hedgehog server sources into the environment for development.
 # The Hedgehog sources are installed, and can be edited, in env/src.
 # Compared to `env`, this additionally installs `invoke` (via hedgehog-utils[dev] & hedgehog-protocol[dev])
 # to call the protobuf compiler, and `twine`, a tool for deploying packages to PyPI.
 env-develop: create-env
-	. env/bin/activate && pip install --upgrade \
-	    ipython twine \
-	    https://github.com/zeromq/pyre/archive/master.zip \
-	    -e git+https://github.com/PRIArobotics/HedgehogPlatform@develop#egg=hedgehog-platform \
-	    -e git+https://github.com/PRIArobotics/HedgehogUtils@develop#egg=hedgehog-utils[dev] \
-	    -e git+https://github.com/PRIArobotics/HedgehogProtocol@develop#egg=hedgehog-protocol[dev] \
-	    -e git+https://github.com/PRIArobotics/HedgehogServer@develop#egg=hedgehog-server \
-	    -e git+https://github.com/PRIArobotics/HedgehogClient@develop#egg=hedgehog-client[test]
+	. $(ENV)/bin/activate && pip install --upgrade \
+	    -r distributions/hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)-dev.txt
 
 # Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
 # This only works if the server sources are installed for development.
@@ -40,26 +37,31 @@ env-develop: create-env
 protoc:
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
 	    export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
-	    . env/bin/activate && \
+	    . $(ENV)/bin/activate && \
 	    cd env/src/hedgehog-protocol && invoke protoc
 	export PATH="$(PWD)/protoc-arm/bin:$(PATH)" && \
 	    export LD_LIBRARY_PATH="$(PWD)/protoc-arm/lib:$(LD_LIBRARY_PATH)" && \
-	    . env/bin/activate && \
+	    . $(ENV)/bin/activate && \
 	    cd env/src/hedgehog-utils && invoke protoc
 
 # Runs the protobuf compiler for hedgehog-protocol and hedgehog-utils.
 # This only works if the server sources are installed for development.
 # This target uses the protoc binary installed on the system
 protoc-provided:
-	. env/bin/activate && \
+	. $(ENV)/bin/activate && \
 	    cd env/src/hedgehog-protocol && invoke protoc
-	. env/bin/activate && \
+	. $(ENV)/bin/activate && \
 	    cd env/src/hedgehog-utils && invoke protoc
 
+# add user with minimal permissions
 user:
-	# add user with minimal permissions
-	sudo adduser --no-create-home --system --group hedgehog-server < /dev/null
-	sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server
+	@if ! (id hedgehog-server >/dev/null 2>&1) ; then \
+	    sudo adduser --no-create-home --system --group hedgehog-server < /dev/null; \
+	    sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server; \
+	    echo "User hedgehog-server created"; \
+	else \
+	    echo "User hedgehog-server exists"; \
+	fi
 
 ####
 # setup targets
@@ -69,20 +71,16 @@ setup: user env
 
 setup-develop: user env-develop protoc
 
-with-raspberry:
-	. env/bin/activate && pip install \
-	    hedgehog-platform[raspberry] hedgehog-server[raspberry]
-
 
 ####
 # run targets
 ####
 
 run-server:
-	. env/bin/activate && hedgehog-server --port 10789 --logging-conf 'logging.conf'
+	. $(ENV)/bin/activate && hedgehog-server --port 10789 --logging-conf 'logging.conf'
 
 run-simulator:
-	. env/bin/activate && hedgehog-simulator --port 10789 --logging-conf 'logging.conf'
+	. $(ENV)/bin/activate && hedgehog-simulator --port 10789 --logging-conf 'logging.conf'
 
 
 ####
@@ -90,7 +88,8 @@ run-simulator:
 ####
 
 install:
-	sudo cp ./hedgehog-server.service /lib/systemd/system
+	sed s/ENV_NAME/$(ENV_NAME)/ hedgehog-server.service | \
+	    sudo tee /lib/systemd/system/hedgehog-server.service >/dev/null
 	sudo systemctl daemon-reload
 	sudo systemctl start hedgehog-server.service
 	sudo systemctl enable hedgehog-server.service
