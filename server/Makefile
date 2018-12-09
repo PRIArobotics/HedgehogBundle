@@ -10,10 +10,12 @@ ENV = ~/.pyenv/versions/$(ENV_NAME)
 # create python environment
 create-env:
 	test -d $(ENV) || pyenv virtualenv $(ENV_NAME)
+	test -e env || ln -s $(ENV) env
 
 # delete python environment
 clean-env:
 	pyenv virtualenv-delete -f $(ENV_NAME)
+	rm -f env
 
 # Installs a Hedgehog server distribution into the environment.
 env: create-env
