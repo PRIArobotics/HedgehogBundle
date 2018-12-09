@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /home/pi/.nvm/nvm.sh
+
 cd hedgehog-ide
 umask 002
-npm start --production
+exec npm start --production
