@@ -15,16 +15,24 @@ install-node:
 	tar -xf /tmp/nodejs.tar.gz -C /tmp
 	sudo cp -R /tmp/node-v$(NODE_VERSION)-linux-armv7l/* /usr/local/
 
-setup-env:
+setup-env: node-setcap user
+
+node-setcap:
 	# make sure node can bind to port 80 without running as root
 	sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
 
-	# add user with minimal permissions
-	sudo adduser --no-create-home --system --group hedgehog-ide < /dev/null
+# add user with minimal permissions
+user:
 	# grant pi user access to IDE-created files (i.e. code)
-	sudo usermod -a -G hedgehog-ide pi
 	# FIXME remove the IDE dialout permission when PRIArobotics/hedgehog-ide#34 is fixed
-	sudo usermod -a -G dialout hedgehog-ide
+	@if ! (id hedgehog-ide >/dev/null 2>&1) ; then \
+	    sudo adduser --no-create-home --system --group hedgehog-ide < /dev/null; \
+	    sudo usermod -a -G hedgehog-ide pi; \
+	    sudo usermod -a -G dialout hedgehog-ide; \
+	    echo "User hedgehog-ide created"; \
+	else \
+	    echo "User hedgehog-ide exists"; \
+	fi
 
 install-develop:
 	git clone https://github.com/PRIArobotics/hedgehog-ide.git
