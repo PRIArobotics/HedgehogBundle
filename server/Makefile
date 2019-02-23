@@ -3,7 +3,7 @@
 
 all: run-server
 
-HEDGEHOG_SERVER_DISTRIBUTION = 0.6.0
+HEDGEHOG_SERVER_DISTRIBUTION = 0.9.0a2
 ENV_NAME = hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)
 ENV = ~/.pyenv/versions/$(ENV_NAME)
 
