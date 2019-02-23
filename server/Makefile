@@ -10,7 +10,8 @@ ENV = ~/.pyenv/versions/$(ENV_NAME)
 # create python environment
 create-env:
 	test -d $(ENV) || pyenv virtualenv $(ENV_NAME)
-	test -e env || ln -s $(ENV) env
+	rm -f env
+	ln -s $(ENV) env
 
 # delete python environment
 clean-env:
