@@ -5,7 +5,7 @@ all: setup-release
 
 setup-release: setup-env install-release config-release enable-service
 
-setup-develop: install-develop
+setup-develop: setup-env install-develop config-release
 
 setup-env: node-setcap user
 
@@ -29,8 +29,6 @@ user:
 install-develop:
 	git clone https://github.com/PRIArobotics/hedgehog-ide.git
 	cd hedgehog-ide && npm install
-	cd hedgehog-ide && ./node_modules/typings/dist/bin.js install
-	cd hedgehog-ide && ./node_modules/grunt/bin/grunt build
 
 create-release:
 	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
