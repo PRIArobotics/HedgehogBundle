@@ -28,7 +28,7 @@ user:
 
 install-develop:
 	git clone https://github.com/PRIArobotics/hedgehog-ide.git
-	cd hedgehog-ide && npm install
+	cd hedgehog-ide && npm install && npm run release
 
 create-release:
 	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
