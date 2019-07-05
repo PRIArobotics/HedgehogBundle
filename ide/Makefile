@@ -31,7 +31,7 @@ install-develop:
 	cd hedgehog-ide && npm install && npm run release
 
 create-release:
-	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
+	# assumes `npm run release` was run (e.g. via `make install-develop`
 	tar czf hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz hedgehog-ide/release --transform 's/hedgehog-ide\/release/hedgehog-ide/'
 
 install-release:
