@@ -3,7 +3,7 @@ IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(
 
 all: setup-release
 
-setup-release: setup-env install-release config-release enable-service
+setup-release: setup-env install-release config-release
 
 setup-develop: setup-env install-develop config-release
 
