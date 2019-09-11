@@ -59,7 +59,7 @@ compile:
 	  make DESTDIR=/home/pi/HedgehogBundle/opencv/dist/system install
 
 	# extract python parts from the rest of the installable stuff, as we want to put it in a virtualenv of our choice
-	mv dist/system/lib/python3.7 dist/python/lib/
+	mv dist/system/usr/local/lib/python3.7 dist/python/lib/
 
 restore-swap:
 	sudo sed -i 's/CONF_SWAPSIZE=[0-9]\+/CONF_SWAPSIZE=$(SWAP_DEFAULT)/' /etc/dphys-swapfile
