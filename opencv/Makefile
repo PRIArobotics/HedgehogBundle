@@ -1,10 +1,13 @@
 PYTHON_VERSION = 3.7.4
 OPENCV_VERSION = 4.1.1
 
+ENV_NAME = cv
+ENV = ~/.pyenv/versions/$(ENV_NAME)
+
 SWAP_DEFAULT=100
 SWAP_INCREASED=2048
 
-build-opencv: get-dependencies get-sources increase-swap compile restore-swap
+build-opencv: get-dependencies get-sources create-virtualenv increase-swap compile restore-swap
 
 get-dependencies:
 	sudo apt -y install build-essential
@@ -24,11 +27,16 @@ increase-swap:
 
 clean:
 	rm -rf opencv-$(OPENCV_VERSION)/build dist
+	pyenv virtualenv-delete $(ENV_NAME)
+
+create-virtualenv:
+	[ -d $(ENV) ] || pyenv virtualenv $(ENV_NAME)
+	. $(ENV)/bin/activate && pip install numpy
 
 compile:
 	mkdir -p opencv-$(OPENCV_VERSION)/build dist/system dist/python/lib
 
-	cd opencv-$(OPENCV_VERSION)/build && \
+	. $(ENV)/bin/activate && cd opencv-$(OPENCV_VERSION)/build && \
 	  cmake \
 	    -Wno-dev \
 	    -D CMAKE_BUILD_TYPE=RELEASE \
@@ -40,7 +48,7 @@ compile:
 	    -D OPENCV_ENABLE_NONFREE=ON \
 	    -D INSTALL_PYTHON_EXAMPLES=OFF \
 	    -D BUILD_EXAMPLES=OFF \
-	    -DPYTHON3_EXECUTABLE=/home/pi/.pyenv/versions/$(PYTHON_VERSION)/bin/python \
+	    -DPYTHON3_EXECUTABLE=/home/pi/.pyenv/versions/$(ENV_NAME)/bin/python \
 	    -DPYTHON3_INCLUDE_DIR=/home/pi/.pyenv/versions/$(PYTHON_VERSION)/include/python3.7m \
 	    -DPYTHON3_LIBRARY=/home/pi/.pyenv/versions/$(PYTHON_VERSION)/lib/libpython3.so \
 	    -DCMAKE_SHARED_LINKER_FLAGS='-latomic' \
