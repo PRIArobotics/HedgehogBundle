@@ -1,6 +1,6 @@
 .PHONY: setup install-pyenv install-deps install archive install-archive
 
-PYTHON_VERSION = 3.7.4
+PYTHON_VERSION ?= 3.7.4
 
 setup: install-pyenv install-deps
 
