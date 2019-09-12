@@ -13,6 +13,3 @@ install-deps:
 install:
 	export NVM_DIR="$$HOME/.nvm" && . "$$NVM_DIR/nvm.sh" && nvm install $(NODE_VERSION)
 
-archive:
-
-install-archive:
