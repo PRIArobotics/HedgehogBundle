@@ -7,10 +7,10 @@ setup: install-pyenv install-deps
 install-pyenv:
 	curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
 
-	echo '' >> .bashrc
-	echo 'export PATH="/home/pi/.pyenv/bin:$$PATH"' >> .bashrc
-	echo 'eval "$$(pyenv init -)"' >> .bashrc
-	echo 'eval "$$(pyenv virtualenv-init -)"' >> .bashrc
+	echo '' >> ~/.bashrc
+	echo 'export PATH="/home/pi/.pyenv/bin:$$PATH"' >> ~/.bashrc
+	echo 'eval "$$(pyenv init -)"' >> ~/.bashrc
+	echo 'eval "$$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
 install-deps:
 	sudo aptitude -y install libssl-dev libbz2-dev libreadline-dev libsqlite3-dev \
