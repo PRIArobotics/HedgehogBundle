@@ -1,9 +1,7 @@
-.PHONY: all create-env clean-env env env-develop protoc protoc-provided \
+.PHONY: create-env clean-env env env-develop protoc protoc-provided \
     setup setup-develop run-server run-simulator install uninstall
 
-all: run-server
-
-HEDGEHOG_SERVER_DISTRIBUTION = 0.9.0a3
+HEDGEHOG_SERVER_DISTRIBUTION ?= 0.9.0a3
 ENV_NAME = hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)
 ENV = ~/.pyenv/versions/$(ENV_NAME)
 

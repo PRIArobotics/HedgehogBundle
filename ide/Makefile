@@ -1,4 +1,4 @@
-IDE_VERSION = 1.5.0rc2
+IDE_VERSION ?= 1.5.0rc2
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz
 
 all: setup-release
