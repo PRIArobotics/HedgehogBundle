@@ -22,8 +22,9 @@ install:
 	/home/pi/.pyenv/bin/pyenv global $(PYTHON_VERSION)
 
 archive:
-	tar czf python-$(PYTHON_VERSION).tar.gz -C /home/pi/.pyenv/versions $(PYTHON_VERSION)
+	mkdir -p dist
+	tar czf dist/python-$(PYTHON_VERSION).tar.gz -C /home/pi/.pyenv/versions $(PYTHON_VERSION)
 
 install-archive:
-	tar xzf python-$(PYTHON_VERSION).tar.gz -C /home/pi/.pyenv/versions
+	tar xzf dist/python-$(PYTHON_VERSION).tar.gz -C /home/pi/.pyenv/versions
 	/home/pi/.pyenv/bin/pyenv global $(PYTHON_VERSION)
