@@ -5,17 +5,15 @@ HEDGEHOG_SERVER_DISTRIBUTION ?= 0.9.0a3
 ENV_NAME = hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)
 ENV = ~/.pyenv/versions/$(ENV_NAME)
 
-PYENV = /home/pi/.pyenv/bin/pyenv
-
 # create python environment
 create-env:
-	test -d $(ENV) || $(PYENV) virtualenv $(ENV_NAME)
+	test -d $(ENV) || pyenv virtualenv $(ENV_NAME)
 	rm -f env
 	ln -s $(ENV) env
 
 # delete python environment
 clean-env:
-	$(PYENV) virtualenv-delete -f $(ENV_NAME)
+	pyenv virtualenv-delete -f $(ENV_NAME)
 	rm -f env
 
 # Installs a Hedgehog server distribution into the environment.

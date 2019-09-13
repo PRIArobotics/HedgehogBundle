@@ -7,8 +7,6 @@ OPENCV_VERSION ?= 4.1.1
 ENV_NAME ?= cv
 ENV = ~/.pyenv/versions/$(ENV_NAME)
 
-PYENV = /home/pi/.pyenv/bin/pyenv
-
 SWAP_DEFAULT ?= 100
 SWAP_INCREASED ?= 2048
 
@@ -16,7 +14,7 @@ setup: install-deps
 
 clean:
 	rm -rf opencv-$(OPENCV_VERSION)/build dist
-	$(PYENV) virtualenv-delete $(ENV_NAME)
+	pyenv virtualenv-delete $(ENV_NAME)
 
 build: download-sources create-virtualenv increase-swap compile restore-swap
 
@@ -54,7 +52,7 @@ download-sources:
 	    unzip opencv_contrib-$(OPENCV_VERSION).zip
 
 create-virtualenv:
-	[ -d $(ENV) ] || $(PYENV) virtualenv $(ENV_NAME)
+	[ -d $(ENV) ] || pyenv virtualenv $(ENV_NAME)
 	. $(ENV)/bin/activate && pip install numpy
 
 increase-swap:
