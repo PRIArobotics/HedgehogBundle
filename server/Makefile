@@ -53,13 +53,13 @@ protoc-provided:
 	    cd env/src/hedgehog-utils && invoke protoc
 
 # add user with minimal permissions
+# enable `sudo shutdown` and `sudo reboot` without a password for that user
 user:
 	@if ! (id hedgehog-server >/dev/null 2>&1) ; then \
 	    sudo adduser --no-create-home --system --group hedgehog-server < /dev/null; \
 	    sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server; \
-	    # enable `sudo shutdown` and `sudo reboot` without a password for the server
 	    echo 'hedgehog-server ALL = NOPASSWD: /sbin/reboot, /sbin/shutdown' | \
-	        sudo tee /etc/sudoers.d/hedgehog-server >/dev/null
+	        sudo tee /etc/sudoers.d/hedgehog-server >/dev/null \
 	    echo "User hedgehog-server created"; \
 	else \
 	    echo "User hedgehog-server exists"; \
