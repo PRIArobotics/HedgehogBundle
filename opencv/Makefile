@@ -37,7 +37,7 @@ download-archive:
 install-archive: create-virtualenv
 	# take the stuff from archive and install it
 	sudo tar xzf dist/opencv-$(OPENCV_VERSION).tar.gz -C /
-	sudo tar xzf dist/opencv-$(OPENCV_VERSION)-python-$(PYTHON_VERSION).tar.gz -C $(ENV)
+	tar xzf dist/opencv-$(OPENCV_VERSION)-python-$(PYTHON_VERSION).tar.gz -C $(ENV)
 
 
 
