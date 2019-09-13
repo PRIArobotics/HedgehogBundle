@@ -26,3 +26,4 @@ archive:
 
 install-archive:
 	tar xzf python-$(PYTHON_VERSION).tar.gz -C /home/pi/.pyenv/versions
+	/home/pi/.pyenv/bin/pyenv global $(PYTHON_VERSION)
