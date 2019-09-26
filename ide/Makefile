@@ -28,7 +28,7 @@ user:
 
 install-develop:
 	git clone https://github.com/PRIArobotics/hedgehog-ide.git
-	cd hedgehog-ide && npm install && npm run release
+	cd hedgehog-ide && npm ci && npm run release
 
 create-release:
 	# assumes `npm run release` was run (e.g. via `make install-develop`)
