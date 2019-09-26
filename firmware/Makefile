@@ -12,13 +12,13 @@ all:
 	cd $(PROJ_NAME) && make all
 
 _clone_firmware:
-	test -d HedgehogFirmware || git clone https://github.com/PRIArobotics/HedgehogFirmware
+	test -d HedgehogFirmware || git clone --depth 1 https://github.com/PRIArobotics/HedgehogFirmware
 
 _checkout_firmware_master: _clone_firmware
-	cd HedgehogFirmware && git fetch origin master && git checkout -B master origin/master
+	cd HedgehogFirmware && git fetch origin +refs/heads/master:refs/remotes/origin/master && git checkout -B master origin/master
 
 _checkout_firmware_light: _clone_firmware
-	cd HedgehogFirmware && git fetch origin light && git checkout -B light origin/light
+	cd HedgehogFirmware && git fetch origin +refs/heads/light:refs/remotes/origin/light && git checkout -B light origin/light
 
 
 ####
@@ -30,7 +30,7 @@ _install_firmware_toolchain:
 
 _openocd:
 	sudo apt -y install autoconf libtool libusb-1.0-0-dev raspi-gpio
-	test -d openocd || git clone git://git.code.sf.net/p/openocd/code openocd
+	test -d openocd || git clone --depth 1 git://git.code.sf.net/p/openocd/code openocd
 	cd openocd && ./bootstrap
 	cd openocd && ./configure --enable-maintainer-mode --enable-bcm2835gpio --enable-sysfsgpio
 	cd openocd && make -j4 && sudo make install

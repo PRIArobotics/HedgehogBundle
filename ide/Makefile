@@ -27,7 +27,7 @@ user:
 	fi
 
 install-develop:
-	git clone https://github.com/PRIArobotics/hedgehog-ide.git
+	git clone --depth 1 https://github.com/PRIArobotics/hedgehog-ide.git
 	cd hedgehog-ide && npm ci && npm run release
 
 create-release:
