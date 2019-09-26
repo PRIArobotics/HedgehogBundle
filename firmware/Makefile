@@ -26,10 +26,10 @@ _checkout_firmware_light: _clone_firmware
 ####
 
 _install_firmware_toolchain:
-	sudo aptitude -y install gcc-arm-none-eabi libnewlib-arm-none-eabi
+	sudo apt -y install gcc-arm-none-eabi libnewlib-arm-none-eabi
 
 _openocd:
-	sudo aptitude -y install autoconf libtool libusb-1.0-0-dev raspi-gpio
+	sudo apt -y install autoconf libtool libusb-1.0-0-dev raspi-gpio
 	test -d openocd || git clone git://git.code.sf.net/p/openocd/code openocd
 	cd openocd && ./bootstrap
 	cd openocd && ./configure --enable-maintainer-mode --enable-bcm2835gpio --enable-sysfsgpio

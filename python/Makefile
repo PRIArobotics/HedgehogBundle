@@ -13,7 +13,7 @@ install-pyenv:
 	echo 'eval "$$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
 install-deps:
-	sudo aptitude -y install libssl-dev libbz2-dev libreadline-dev libsqlite3-dev \
+	sudo apt -y install libssl-dev libbz2-dev libreadline-dev libsqlite3-dev \
 	    zlib1g-dev xz-utils libxml2-dev libxmlsec1-dev \
 	    libncursesw5-dev libgdbm-dev tk-dev liblzma-dev uuid-dev libffi-dev
 
