@@ -28,6 +28,12 @@ archive:
 	tar czf dist/opencv-$(OPENCV_VERSION).tar.gz -C dist/system usr
 	tar czf dist/opencv-$(OPENCV_VERSION)-python-$(PYTHON_VERSION).tar.gz -C dist/python lib
 
+download-archive:
+	[ -f dist/opencv-$(OPENCV_VERSION).tar.gz ] || \
+	    wget -O dist/opencv-$(OPENCV_VERSION).tar.gz https://raw.githubusercontent.com/PRIArobotics/HedgehogBundle/dist/opencv/opencv-$(OPENCV_VERSION).tar.gz
+	[ -f dist/opencv-$(OPENCV_VERSION).tar.gz ] || \
+	    wget -O dist/opencv-$(OPENCV_VERSION)-python-$(PYTHON_VERSION).tar.gz https://raw.githubusercontent.com/PRIArobotics/HedgehogBundle/dist/opencv/python/opencv-$(OPENCV_VERSION)-python-$(PYTHON_VERSION).tar.gz
+
 install-archive: create-virtualenv
 	# take the stuff from archive and install it
 	sudo tar xzf dist/opencv-$(OPENCV_VERSION).tar.gz -C /
