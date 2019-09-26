@@ -30,5 +30,6 @@ download-archive:
 	    wget -O dist/python-$(PYTHON_VERSION).tar.gz https://raw.githubusercontent.com/PRIArobotics/HedgehogBundle/dist/python/python-$(PYTHON_VERSION).tar.gz
 
 install-archive:
+	mkdir -p /home/pi/.pyenv/versions
 	tar xzf dist/python-$(PYTHON_VERSION).tar.gz -C /home/pi/.pyenv/versions
 	/home/pi/.pyenv/bin/pyenv global $(PYTHON_VERSION)
