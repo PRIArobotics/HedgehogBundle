@@ -1,16 +1,15 @@
-.PHONY: all create-env clean-env env env-develop protoc protoc-provided \
+.PHONY: create-env clean-env env env-develop protoc protoc-provided \
     setup setup-develop run-server run-simulator install uninstall
 
-all: run-server
-
-HEDGEHOG_SERVER_DISTRIBUTION = 0.6.0
+HEDGEHOG_SERVER_DISTRIBUTION ?= 0.10.0rc2
 ENV_NAME = hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)
 ENV = ~/.pyenv/versions/$(ENV_NAME)
 
 # create python environment
 create-env:
 	test -d $(ENV) || pyenv virtualenv $(ENV_NAME)
-	test -e env || ln -s $(ENV) env
+	rm -f env
+	ln -s $(ENV) env
 
 # delete python environment
 clean-env:
@@ -54,10 +53,13 @@ protoc-provided:
 	    cd env/src/hedgehog-utils && invoke protoc
 
 # add user with minimal permissions
+# enable `sudo shutdown` and `sudo reboot` without a password for that user
 user:
 	@if ! (id hedgehog-server >/dev/null 2>&1) ; then \
 	    sudo adduser --no-create-home --system --group hedgehog-server < /dev/null; \
 	    sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server; \
+	    echo 'hedgehog-server ALL = NOPASSWD: /sbin/reboot, /sbin/shutdown' | \
+	        sudo tee /etc/sudoers.d/hedgehog-server >/dev/null; \
 	    echo "User hedgehog-server created"; \
 	else \
 	    echo "User hedgehog-server exists"; \

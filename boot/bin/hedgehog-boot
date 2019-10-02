@@ -1,0 +1,17 @@
+#!/bin/bash
+
+ENV_NAME="$1"
+ENV="/home/pi/.pyenv/versions/$ENV_NAME"
+
+for mountpoint in /media/usb{1..5}
+do
+    if (mountpoint -q -- "$mountpoint" && [ -f "$mountpoint/wpa_supplicant.conf" ])
+    then
+        echo "copying wpa_supplicant.conf from $mountpoint"
+        cp "$mountpoint/wpa_supplicant.conf" "/etc/wpa_supplicant/wpa_supplicant.conf"
+        break
+    fi
+done
+
+. "$ENV/bin/activate" || exit 1
+python -c 'from RPi import GPIO; GPIO.setmode(GPIO.BOARD); GPIO.setup(36, GPIO.OUT, GPIO.PUD_OFF, GPIO.HIGH)'

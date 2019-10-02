@@ -9,6 +9,8 @@ WorkingDirectory=/home/pi/HedgehogBundle/server
 # ENV_NAME will be sed'ed to the real env name on installation into the systemd folder
 ExecStart=/home/pi/HedgehogBundle/server/bin/hedgehog-server ENV_NAME
 User=hedgehog-server
+Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=multi-user.target

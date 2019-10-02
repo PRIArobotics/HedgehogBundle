@@ -1,11 +1,11 @@
-IDE_VERSION = 1.3.0
+IDE_VERSION ?= 1.5.2
 IDE_RELEASE = https://github.com/PRIArobotics/hedgehog-ide/releases/download/v$(IDE_VERSION)/hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz
 
 all: setup-release
 
-setup-release: setup-env install-release config-release enable-service
+setup-release: setup-env install-release config-release
 
-setup-develop: install-develop
+setup-develop: setup-env install-develop config-release
 
 setup-env: node-setcap user
 
@@ -27,13 +27,11 @@ user:
 	fi
 
 install-develop:
-	git clone https://github.com/PRIArobotics/hedgehog-ide.git
-	cd hedgehog-ide && npm install
-	cd hedgehog-ide && ./node_modules/typings/dist/bin.js install
-	cd hedgehog-ide && ./node_modules/grunt/bin/grunt build
+	git clone --depth 1 https://github.com/PRIArobotics/hedgehog-ide.git
+	cd hedgehog-ide && npm ci && npm run release
 
 create-release:
-	cd hedgehog-ide && ./node_modules/grunt/bin/grunt release
+	# assumes `npm run release` was run (e.g. via `make install-develop`)
 	tar czf hedgehog-ide-$(IDE_VERSION)-linux-armv7l.tar.gz hedgehog-ide/release --transform 's/hedgehog-ide\/release/hedgehog-ide/'
 
 install-release:

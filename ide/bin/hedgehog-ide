@@ -4,4 +4,6 @@
 
 cd hedgehog-ide
 umask 002
-exec npm start --production
+export NODE_ENV=production
+#exec node --inspect=$HOSTNAME.local:9229 build/src/server/server.js
+exec node build/src/server/server.js

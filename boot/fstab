@@ -1,0 +1,7 @@
+
+# automount entries for USB devices
+/dev/sda1       /media/usb1      auto     defaults,noatime,nofail,x-systemd.automount,x-systemd.device-timeout=2  0       0
+/dev/sdb1       /media/usb2      auto     defaults,noatime,nofail,x-systemd.automount,x-systemd.device-timeout=2  0       0
+/dev/sdc1       /media/usb3      auto     defaults,noatime,nofail,x-systemd.automount,x-systemd.device-timeout=2  0       0
+/dev/sdd1       /media/usb4      auto     defaults,noatime,nofail,x-systemd.automount,x-systemd.device-timeout=2  0       0
+/dev/sde1       /media/usb5      auto     defaults,noatime,nofail,x-systemd.automount,x-systemd.device-timeout=2  0       0
