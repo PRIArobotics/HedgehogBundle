@@ -1,7 +1,7 @@
 .PHONY: create-env clean-env env env-develop protoc protoc-provided \
     setup setup-develop run-server run-simulator install uninstall
 
-HEDGEHOG_SERVER_DISTRIBUTION ?= 0.10.0rc2
+HEDGEHOG_SERVER_DISTRIBUTION ?= 0.10.0rc3
 ENV_NAME = hedgehog-server-$(HEDGEHOG_SERVER_DISTRIBUTION)
 ENV = ~/.pyenv/versions/$(ENV_NAME)
 
@@ -57,7 +57,7 @@ protoc-provided:
 user:
 	@if ! (id hedgehog-server >/dev/null 2>&1) ; then \
 	    sudo adduser --no-create-home --system --group hedgehog-server < /dev/null; \
-	    sudo usermod -a -G dialout,gpio,i2c,spi hedgehog-server; \
+	    sudo usermod -a -G dialout,gpio,i2c,spi,video hedgehog-server; \
 	    echo 'hedgehog-server ALL = NOPASSWD: /sbin/reboot, /sbin/shutdown' | \
 	        sudo tee /etc/sudoers.d/hedgehog-server >/dev/null; \
 	    echo "User hedgehog-server created"; \

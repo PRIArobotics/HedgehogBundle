@@ -1,6 +1,6 @@
 hedgehog-client==0.10.0rc2
   concurrent-utils==0.2.0
-  hedgehog-protocol==0.10.0rc2
+  hedgehog-protocol==0.10.0rc3
     hedgehog-utils==0.7.0rc3
   hedgehog-utils==0.7.0rc3
     aiostream==0.3.2
@@ -44,10 +44,10 @@ hedgehog-client==0.10.0rc2
         tqdm==4.33.0
     pyserial==3.4
     simplejson==3.16.0
-hedgehog-server==0.10.0rc2
+hedgehog-server==0.10.0rc3
   concurrent-utils==0.2.0
   hedgehog-platform==0.2.0
-  hedgehog-protocol==0.10.0rc2
+  hedgehog-protocol==0.10.0rc3
   hedgehog-utils==0.7.0rc3
   pyserial-asyncio==0.4
     pyserial==3.4
